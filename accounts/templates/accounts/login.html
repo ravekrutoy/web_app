@@ -1,0 +1,28 @@
+{% extends "accounts/layout.html" %}
+
+{% block title %}
+Sigh Up
+{% endblock %}
+
+{% block content %}
+    <div id="window-log">
+        <div class="header">
+            <h3>Login</h3>
+            <p>Enter your email below to login to your account.</p>
+        </div>
+        <div class="field big"> 
+            <label><b>Email</b></label>
+            <input type="text" placeholder="Enter your email">
+        </div>
+        <div class="field big">
+            <label><b>Password</b></label>
+            <input type="text" placeholder="Enter your password">
+        </div>
+        <button class="create-button">
+            Sign up
+        </button>
+        <div class="last-text">
+        Don't have an account?
+        <a href="{% url 'reg' %}">Sign in</a>
+        </div>
+{% endblock %}

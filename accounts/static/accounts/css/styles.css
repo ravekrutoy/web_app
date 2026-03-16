@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* Центр страницы */
+
+body {
+  margin: 0;
+  background: #f3f4f6;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+  font-family: "Inter", sans-serif;
+}
+
+/* Карточка */
+
+#window-reg {
+  background: white;
+  width: 358px;
+
+  border: 1px solid silver;
+  border-radius: 8px;
+  padding: 24px;
+
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Заголовок */
+
+.header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.header p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #71717a;
+}
+
+/* Две колонки */
+
+.row {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* Поля */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field.big {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.field label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #18181b;
+}
+
+.field input {
+  height: 40px;
+  padding: 0 10px;
+  width: 100%;
+
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  box-sizing: border-box;
+
+  font-size: 14px;
+}
+
+/* Кнопка */
+
+.create-button {
+  width: 100%;
+  height: 40px;
+
+  margin-top: 20px;
+
+  background: #18181b;
+  color: #fafafa;
+
+  border: none;
+  border-radius: 6px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.create-button:hover {
+  background: #27272a;
+}
+
+/* Нижний текст */
+
+.last-text {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.last-text {
+  margin-left: 4px;
+  text-decoration: none;
+}
+
+.last-text a{
+  color: black;
+  text-decoration: underline;
+}
+
+/* ======================================================== */
+
+/* Окно Логина */
+
+#window-log {
+  background: white;
+  width: 358px;
+
+  border: 1px solid silver;
+  border-radius: 8px;
+  padding: 24px;
+
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Заголовок Логина*/
+
+.header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.header p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #71717a;
+}
+
+/* ======================================================== */
+
+/* Success and Fail */
+
+.s-f-box{
+    height:80vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+}
+
+.s-f-icon{
+    width:32px;
+    height:32px;
+    background: black;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.s-f-text{
+    font-family: "Inter", sans-serif;
+    font-weight:600;
+    font-size:24px;
+    line-height:32px;
+}

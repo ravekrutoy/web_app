@@ -1,0 +1,23 @@
+from rest_framework import serializers
+from .models import User
+import bcrypt
+
+
+class SignupSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ["firstName", "lastName", "email", "password"]
+
+    def create(self, validated_data):
+
+        password = validated_data["password"]
+
+        hashed_password = bcrypt.hashpw(
+            password.encode(),
+            bcrypt.gensalt()
+        ).decode()
+
+        validated_data["password"] = hashed_password
+
+        return User.objects.create(**validated_data)
