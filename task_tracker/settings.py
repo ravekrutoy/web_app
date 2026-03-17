@@ -76,10 +76,11 @@ WSGI_APPLICATION = 'task_tracker.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 import dj_database_url
+import os
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3'
+        default=os.environ.get("DATABASE_URL")
     )
 }
 
