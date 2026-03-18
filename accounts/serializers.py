@@ -21,3 +21,7 @@ class SignupSerializer(serializers.ModelSerializer):
         validated_data["password"] = hashed_password
 
         return User.objects.create(**validated_data)
+    
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField()

@@ -1,6 +1,8 @@
 from django.shortcuts import render
 
-from .serializers import SignupSerializer
+from task_tracker.accounts.models import User
+
+from .serializers import SignupSerializer, LoginSerializer
 from rest_framework.views import APIView
 from django.shortcuts import redirect
 
@@ -38,3 +40,32 @@ class SignupView(APIView):
 
         return redirect("/fail")
     
+class LoginView(APIView):
+
+    def post(self, request):
+
+        serializer = LoginSerializer(data=request.data)
+
+        if not serializer.is_valid():
+            return redirect("/fail")
+
+        email = serializer.validated_data["email"]
+        password = serializer.validated_data["password"]
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return redirect("/fail")
+
+        import bcrypt
+
+        if not bcrypt.checkpw(password.encode(), user.password.encode()):
+            return redirect("/fail")
+
+        refresh = RefreshToken.for_user(user)
+        access_token = str(refresh.access_token)
+
+        response = redirect("/success")
+        response.set_cookie("accessToken", access_token)
+
+        return response 
