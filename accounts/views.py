@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from task_tracker.accounts.models import User
+from .models import User
 
 from .serializers import SignupSerializer, LoginSerializer
 from rest_framework.views import APIView
