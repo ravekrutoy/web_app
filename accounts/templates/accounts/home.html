@@ -1,0 +1,15 @@
+{% extends "accounts/layout.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <a href="{% url 'log' %}" class="logout">
+        <span class="arrow">←</span>
+        Log out
+    </a>
+
+{% endblock %}

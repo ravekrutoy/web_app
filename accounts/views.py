@@ -20,6 +20,8 @@ def success(request):
 def fail(request):
     return render(request, 'accounts/fail.html')
 
+
+
 class SignupView(APIView):
 
     def post(self, request):
@@ -33,7 +35,7 @@ class SignupView(APIView):
             refresh = RefreshToken.for_user(user)
             access_token = str(refresh.access_token)
 
-            response = redirect("/success")
+            response = redirect("/home")
             response.set_cookie("accessToken", access_token)
 
             return response
@@ -65,7 +67,24 @@ class LoginView(APIView):
         refresh = RefreshToken.for_user(user)
         access_token = str(refresh.access_token)
 
-        response = redirect("/success")
+        response = redirect("/home")
         response.set_cookie("accessToken", access_token)
 
         return response 
+
+class LogoutView(APIView):
+
+    def get(self, request):
+        response = redirect("/login")
+        response.delete_cookie("accessToken")
+        return response
+    
+class HomeView(APIView):
+
+    def get(self, request):
+        token = request.COOKIES.get("accessToken")
+
+        if not token:
+            return redirect("/login")
+
+        return render(request, "home.html")
