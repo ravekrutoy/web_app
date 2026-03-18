@@ -11,11 +11,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 def register(request):
     return render(request, 'accounts/register.html')
 
-def login(request):
+def login_view(request):
     return render(request, 'accounts/login.html')
-
-def success(request):
-    return render(request, 'accounts/success.html')
 
 def fail(request):
     return render(request, 'accounts/fail.html')
@@ -87,4 +84,4 @@ class HomeView(APIView):
         if not token:
             return redirect("/login")
 
-        return render(request, "home.html")
+        return render(request, "accounts/home.html")
