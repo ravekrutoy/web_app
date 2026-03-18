@@ -72,7 +72,7 @@ class LoginView(APIView):
 class LogoutView(APIView):
 
     def get(self, request):
-        response = redirect("/login")
+        response = redirect("/")
         response.delete_cookie("accessToken")
         return response
     
