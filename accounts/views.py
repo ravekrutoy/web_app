@@ -72,7 +72,7 @@ class LoginView(APIView):
 class LogoutView(APIView):
 
     def get(self, request):
-        response = redirect("/")
+        response = redirect("log")
         response.delete_cookie("accessToken")
         return response
     
@@ -82,6 +82,6 @@ class HomeView(APIView):
         token = request.COOKIES.get("accessToken")
 
         if not token:
-            return redirect("/login")
+            return redirect("log")
 
         return render(request, "accounts/home.html")
