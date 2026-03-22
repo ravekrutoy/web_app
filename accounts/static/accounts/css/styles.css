@@ -195,4 +195,8 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
+
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
 }
