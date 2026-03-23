@@ -190,3 +190,18 @@ body {
     font-weight: 500;
     font-size: 14px;
 }
+
+/* Ошибка */
+.error-text {
+    font-family: "Inter", sans-serif;
+    color: red;
+    font-weight: 400;
+    font-size: 14px;
+    margin-top: 8px;
+    line-height: 20px;
+}
+
+/* Красная рамка */
+.input-error {
+    border: 1px solid red;
+}

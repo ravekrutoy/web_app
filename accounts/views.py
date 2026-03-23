@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import bcrypt
 
 from .models import User
 
@@ -22,11 +23,11 @@ def fail(request):
 class SignupView(APIView):
 
     def post(self, request):
-
+        
         serializer = SignupSerializer(data=request.data)
 
         if serializer.is_valid():
-
+            
             user = serializer.save()
 
             refresh = RefreshToken.for_user(user)
@@ -37,7 +38,7 @@ class SignupView(APIView):
 
             return response
 
-        return redirect("/fail")
+        return render(request, "accounts/register.html", {"errors": serializer.errors})
     
 class LoginView(APIView):
 
@@ -46,7 +47,9 @@ class LoginView(APIView):
         serializer = LoginSerializer(data=request.data)
 
         if not serializer.is_valid():
-            return redirect("/fail")
+            return render(request, "accounts/login.html", {
+                "error": "Invalid email or password"
+            })
 
         email = serializer.validated_data["email"]
         password = serializer.validated_data["password"]
@@ -54,20 +57,22 @@ class LoginView(APIView):
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            return redirect("/fail")
-
-        import bcrypt
+            return render(request, "accounts/login.html", {
+                "error": "Invalid email or password"
+            })
 
         if not bcrypt.checkpw(password.encode(), user.password.encode()):
-            return redirect("/fail")
+            return render(request, "accounts/login.html", {
+                "error": "Invalid email or password"
+            })
 
         refresh = RefreshToken.for_user(user)
         access_token = str(refresh.access_token)
 
-        response = redirect("/home")
+        response = redirect("home")
         response.set_cookie("accessToken", access_token)
 
-        return response 
+        return response
 
 class LogoutView(APIView):
 

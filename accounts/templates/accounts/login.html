@@ -21,8 +21,13 @@ Login
         </div>
         <div class="field big">
             <label><b>Password</b></label>
-            <input type="password" name = "password" placeholder="Enter your password">
+            <input type="password" name = "password" placeholder="Enter your password" class="{% if errors %}input-error{% endif %}">
         </div>
+
+        {% if error %}
+            <p class="error-text">Wrong password or email</p>
+        {% endif %}
+
         <button type="submit" class="create-button">
             Sign up
         </button>

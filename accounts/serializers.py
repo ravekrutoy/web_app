@@ -8,7 +8,12 @@ class SignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["firstName", "lastName", "email", "password"]
-
+        
+    def validate_email(self, value):
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("There is already a user with this email")
+        return value
+    
     def create(self, validated_data):
 
         password = validated_data["password"]
