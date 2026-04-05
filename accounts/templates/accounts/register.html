@@ -47,7 +47,7 @@ Sign Up
     </div>
 
       {% if errors.email %}
-          <p class="error-text">{{ errors.email.0 }}</p>
+          <p class="error-text">There is already a user with this email</p>
       {% endif %}
 
     <div class="field big">

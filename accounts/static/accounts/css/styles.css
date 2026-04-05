@@ -205,3 +205,45 @@ body {
 .input-error {
     border: 1px solid red;
 }
+
+/* ================= MOBILE VERSION ================= */
+
+@media (max-width: 480px) {
+
+  #window-log,
+  #window-reg {
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    padding: 0;
+    max-width: 350px;
+  }
+
+  .header {
+    text-align: center;
+    height: 64px;
+    width: 328px;
+    gap: 8px;
+  }
+
+  .header h3 {
+    height: 36px;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .header p {
+    height: 20px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .last-text {
+    width: 328;
+    height: 30px;
+    padding-top: 16px;
+    gap: 10px;
+  }
+}
