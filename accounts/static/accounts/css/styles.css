@@ -206,17 +206,28 @@ body {
     border: 1px solid red;
 }
 
-/* ================= MOBILE VERSION ================= */
+/* Мобильная версия */
 
 @media (max-width: 480px) {
 
-  #window-log,
-  #window-reg {
+  body{
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  #window-log {
     border: none;
     box-shadow: none;
     background: transparent;
     padding: 0;
     max-width: 350px;
+  }
+
+  #window-reg {
+    background: transparent;
+    box-shadow: none;
+    border: 1px solid rgba(228, 228, 231, 1);
+    max-width: 374px;
+    min-width: 190px;
   }
 
   .header {
@@ -245,5 +256,9 @@ body {
     height: 30px;
     padding-top: 16px;
     gap: 10px;
+  }
+
+  #window-reg .header{
+    text-align: left;
   }
 }
