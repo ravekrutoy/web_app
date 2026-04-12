@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* ========================= Home страница =========================== */
+
+body {
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
+header {
+  padding-top: 24px;
+  padding-bottom: 24px;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+header div {
+  display: flex;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  border-radius: 6px;
+  padding-top: 8px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  gap: 8px;
+}
+
+header a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.tools{
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.add-task-button {
+  width: 167px;
+  height: 32px;
+  padding-top: 8px;
+  padding-right: 12px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  gap: 8px;
+  border-radius: 6px;
+  background-color: black;
+  align-items: center;
+  display: flex;
+  color: white;
+  font-family: "Inter", sans-serif;
+  border: none;
+  margin-left: auto;
+}
+
+.add-task-button-mobile {
+  display: none;
+}
+
+
+.filters {
+  display: flex;
+  padding: 4px;
+  border-radius: 8px;
+  gap: 4px;
+}
+
+.filter {
+  padding: 6px 12px;
+  border-radius: 2px;
+  text-decoration: none;
+  color: #6b7280;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filter.active {
+  background-color: white;
+  color: black;
+}
+main{
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  padding-top: 40px;
+  border-radius: 8px;
+  font-family: "Inter", sans-serif;
+  min-height: 70vh;  
+}
+
+.main-header{
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  margin-bottom: 24px;
+}
+
+.if-null-tasks {
+  width: 291px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 24px;
+  margin: auto;   
+  text-align: center;
+}
+
+.if-null-tasks h1{
+  font-weight: 700;
+  line-height: 20px;
+  font-size: 20px;
+  margin: 0;         
+}
+
+.if-null-tasks h3{
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: #6b7280;
+  margin: 0;          
+}
+
+.add-task-button-null{
+  width: 175px;
+  height: 40px;
+  padding-top: 8px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  gap: 8px;
+  border-radius: 6px;
+  background-color: black;
+  align-items: center;
+  display: flex;
+  color: white;
+  font-family: "Inter", sans-serif;
+  border: none;
+}
+
+/* ================= Мобильная версия ======================= */
+
+@media (max-width: 480px) {
+
+  body{
+    padding-left: 16px;
+    padding-right: 16px;
+    gap: 10px;
+  }
+
+  .tools{
+    gap: 8px;
+  }
+
+  .add-task-button {
+    display: none;
+  }
+
+  .add-task-button-mobile {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    background: black;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+    border: none;
+  }
+
+  main {
+    padding-top: 40px;
+    padding-bottom: 24px;
+    gap: 10px;
+    border-radius: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+}

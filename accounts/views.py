@@ -90,3 +90,19 @@ class HomeView(APIView):
             return redirect("log")
 
         return render(request, "accounts/home.html")
+    
+class HomeView(APIView):
+
+    def get(self, request):
+        token = request.COOKIES.get("accessToken")
+
+        if not token:
+            return redirect("log")
+
+        filter_type = request.GET.get("filter", "all")
+
+        context = {
+            "filter": filter_type
+        }
+
+        return render(request, "accounts/home.html", context)

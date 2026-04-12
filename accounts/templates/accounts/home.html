@@ -1,15 +1,79 @@
-{% extends "accounts/layout.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="{% static 'accounts/css/home-styles.css' %}">
+</head>
 
-{% block title %}
-Home
-{% endblock %}
+<body>
 
-{% block content %}
+    <header>
+        <img src="{% static 'accounts/img/logo.svg' %}" alt="">
 
-<div>
-    <a href="{% url 'logout' %}" class="logout">
-        ← Log out
-    </a>
-</div>
+        <div>
+            <a href="{% url 'log' %}">
+                <img src="{% static 'accounts/img/logout.svg' %}" alt="">Выйти
+            </a>
+        </div>
 
-{% endblock %}
+    </header>
+
+    <div class="tools">
+        <div class="filters">
+
+            <a href="/home/?filter=all"
+            class="filter {% if filter == 'all' %}active{% endif %}">
+            Все
+            </a>
+
+            <a href="/home/?filter=active"
+            class="filter {% if filter == 'active' %}active{% endif %}">
+            Активные
+            </a>
+
+            <a href="/home/?filter=done"
+            class="filter {% if filter == 'done' %}active{% endif %}">
+            Выполненные
+            </a>
+
+            <div class="filter-bg"></div>
+
+        </div>
+
+        <button class="add-task-button desktop">
+                <img src="{% static 'accounts/img/add-tsk.svg' %}" alt="">
+                Добавить задачу
+        </button>
+
+        <button class="add-task-button-mobile">
+                <img src="{% static 'accounts/img/add-tsk.svg' %}" alt="">
+        </button>
+    </div>
+
+    <main>
+        <div class="main-header">
+            {% if filter == "active" %}
+                Активные
+            {% elif filter == "done" %}
+                Выполненные
+            {% else %}
+                Мои задачи
+            {% endif %}
+        </div>
+
+        <div class="if-null-tasks">
+            <h1>Здесь пока пусто</h1>
+            <h3>Добавьте первую задачу —<br> и она повится в этом списке</h3>
+            <button class="add-task-button-null">
+                <img src="{% static 'accounts/img/plus.svg' %}" alt="">Добавить задачу
+            </button>
+        </div>
+    </main>
+
+</body>
+
+</html>
+

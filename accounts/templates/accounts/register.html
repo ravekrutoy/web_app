@@ -1,11 +1,15 @@
-{% extends "accounts/layout.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="{% static 'accounts/css/reg-log-styles.css' %}">
+</head>
 
-{% block title %}
-Sign Up
-{% endblock %}
-
-{% block content %}
-<div id="window-reg">
+<body>
+  <div id="window-reg">
 
   <div class="header">
     <h3>Sign up</h3>
@@ -70,5 +74,8 @@ Sign Up
     <a href="{% url 'log' %}">Login</a>
   </div>
 
-</div>
-{% endblock %}
+  </div>
+
+</body>
+
+</html>

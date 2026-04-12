@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-/* Центр страницы */
+/* ==================== reg log ===================*/
 
 body {
   margin: 0;
@@ -11,12 +11,14 @@ body {
   align-items: center;
 
   height: 100vh;
+
   font-family: "Inter", sans-serif;
 }
 
-/* Карточка */
+/* Карточки */
 
-#window-reg {
+#window-reg,
+#window-log {
   background: white;
   width: 358px;
 
@@ -116,84 +118,14 @@ body {
   font-size: 14px;
 }
 
-.last-text {
-  margin-left: 4px;
-  text-decoration: none;
-}
-
 .last-text a{
   color: black;
   text-decoration: underline;
 }
 
-/* ======================================================== */
-
-/* Окно Логина */
-
-#window-log {
-  background: white;
-  width: 358px;
-
-  border: 1px solid silver;
-  border-radius: 8px;
-  padding: 24px;
-
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-}
-
-/* Заголовок Логина*/
-
-.header h3 {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.header p {
-  margin-top: 6px;
-  font-size: 14px;
-  color: #71717a;
-}
-
-/* ======================================================== */
-
-/* Success and Fail */
-
-.s-f-box{
-    height:80vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:16px;
-}
-
-.s-f-text{
-    font-family: "Inter", sans-serif;
-    font-weight:600;
-    font-size:24px;
-    line-height:32px;
-}
-
-/* Кнопка logout */
-
-.logout {
-    position: absolute;
-    top: 30px;
-    left: 32px;
-
-    display: flex;
-    align-items: center;
-    gap: 6px;
-
-    font-family: "Inter", sans-serif;
-    font-weight: 500;
-    font-size: 14px;
-}
-
 /* Ошибка */
+
 .error-text {
-    font-family: "Inter", sans-serif;
     color: red;
     font-weight: 400;
     font-size: 14px;
@@ -201,19 +133,19 @@ body {
     line-height: 20px;
 }
 
-/* Красная рамка */
 .input-error {
     border: 1px solid red;
 }
 
-/* Мобильная версия */
+/* ================= Мобильная версия ======================= */
 
 @media (max-width: 480px) {
 
-  body{
+  body {
     padding-left: 16px;
     padding-right: 16px;
   }
+
   #window-log {
     border: none;
     box-shadow: none;
@@ -232,33 +164,25 @@ body {
 
   .header {
     text-align: center;
-    height: 64px;
     width: 328px;
-    gap: 8px;
   }
 
   .header h3 {
-    height: 36px;
     font-weight: 700;
     font-size: 30px;
     line-height: 36px;
   }
 
   .header p {
-    height: 20px;
-    font-weight: 400;
     font-size: 14px;
     line-height: 20px;
   }
 
   .last-text {
-    width: 328;
-    height: 30px;
     padding-top: 16px;
-    gap: 10px;
   }
 
-  #window-reg .header{
+  #window-reg .header {
     text-align: left;
   }
 }

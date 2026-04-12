@@ -1,10 +1,14 @@
-{% extends "accounts/layout.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="{% static 'accounts/css/reg-log-styles.css' %}">
+</head>
 
-{% block title %}
-Login
-{% endblock %}
-
-{% block content %}
+<body>
     <div id="window-log">
 
         <form method="POST" action="{% url 'login' %}">
@@ -45,4 +49,7 @@ Login
         Don't have an account?
         <a href="{% url 'reg' %}">Sign up</a>
         </div>
-{% endblock %}
+
+</body>
+
+</html>
