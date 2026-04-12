@@ -16,38 +16,38 @@
         {% csrf_token %}
 
         <div class="header">
-            <h3>Login</h3>
-            <p>Enter your email below to login to your account.</p>
+            <h3>Авторизация</h3>
+            <p>Введите свой Email ниже, чтобы войти в свою учетную запись.</p>
         </div>
         <div class="field big"> 
             <label><b>Email</b></label>
             <input 
             type="email" 
             name="email" 
-            placeholder="Enter your email">
+            placeholder="Введите ваш email">
         </div>
         <div class="field big">
-            <label><b>Password</b></label>
+            <label><b>Пароль</b></label>
             <input 
             type="password" 
             name = "password" 
-            placeholder="Enter your password" 
+            placeholder="Введите ваш пароль" 
             class="{% if error %}input-error{% endif %}">
         </div>
 
         {% if error %}
-            <p class="error-text">Wrong password or email</p>
+            <p class="error-text">Неверный Email или пароль</p>
         {% endif %}
 
         <button type="submit" class="create-button">
-            Login
+            Авторизоваться
         </button>
 
       </form>
 
         <div class="last-text">
-        Don't have an account?
-        <a href="{% url 'reg' %}">Sign up</a>
+        У вас нет аккаунта?
+        <a href="{% url 'reg' %}">Регистарция</a>
         </div>
 
 </body>

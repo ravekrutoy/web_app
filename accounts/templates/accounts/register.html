@@ -12,8 +12,8 @@
   <div id="window-reg">
 
   <div class="header">
-    <h3>Sign up</h3>
-    <p>Enter your information to create an account.</p>
+    <h3>Регистарция</h3>
+    <p>Введите свои данные для создания учетной записи.</p>
   </div>
 
   <form method="POST" action="{% url 'signup' %}">
@@ -22,20 +22,20 @@
 
     <div class="row">
       <div class="field">
-        <label><b>First name</b></label>
+        <label><b>Имя</b></label>
         <input 
         type="text" 
         name="firstName" 
-        placeholder="Enter your first name" 
+        placeholder="Введите имя" 
         required>
       </div>
 
       <div class="field">
-        <label><b>Last name</b></label>
+        <label><b>Фамилия</b></label>
         <input 
         type="text" 
         name="lastName" 
-        placeholder="Enter your last name" 
+        placeholder="Введите фамилию" 
         required>
       </div>
     </div>
@@ -45,33 +45,33 @@
       <input 
       type="email" 
       name="email" 
-      placeholder="Enter your email"
+      placeholder="Введите email"
       class="{% if errors.email %}input-error{% endif %}" 
       required>
     </div>
 
       {% if errors.email %}
-          <p class="error-text">There is already a user with this email</p>
+          <p class="error-text">Уже есть пользователь с таким адресом электронной почты.</p>
       {% endif %}
 
     <div class="field big">
-      <label><b>Password</b></label>
+      <label><b>Пароль</b></label>
       <input 
       type="password" 
       name="password" 
-      placeholder="Enter your password" 
+      placeholder="Введите пароль" 
       required>
     </div>
 
     <button type="submit" class="create-button">
-      Create an account
+      Создать аккаунт
     </button>
 
   </form>
 
   <div class="last-text">
-    Already have an account?
-    <a href="{% url 'log' %}">Login</a>
+    У вас уже есть аккаунт?
+    <a href="{% url 'log' %}">Авторизация</a>
   </div>
 
   </div>
