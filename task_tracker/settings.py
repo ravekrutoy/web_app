@@ -66,8 +66,8 @@ WSGI_APPLICATION = 'task_tracker.wsgi.application'
 import dj_database_url
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
+    'default': dj_database_url.parse(
+        os.environ["DATABASE_URL"],
         conn_max_age=600
     )
 }
