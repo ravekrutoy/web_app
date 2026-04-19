@@ -10,70 +10,135 @@
 
 <body>
 
-    <header>
-        <img src="{% static 'accounts/img/logo.svg' %}" alt="">
+<header>
+    <img src="{% static 'accounts/img/logo.svg' %}" alt="">
 
-        <div>
-            <a href="{% url 'log' %}">
-                <img src="{% static 'accounts/img/logout.svg' %}" alt="">Выйти
-            </a>
-        </div>
+    <div>
+        <a href="{% url 'log' %}">
+            <img src="{% static 'accounts/img/logout.svg' %}" alt="">Выйти
+        </a>
+    </div>
+</header>
 
-    </header>
+<div class="tools">
 
-    <div class="tools">
-        <div class="filters">
+    <div class="filters">
 
-            <a href="/home/?filter=all"
-            class="filter {% if filter == 'all' %}active{% endif %}">
-            Все
-            </a>
+        <button class="filter active" data-filter="all">Все</button>
+        <button class="filter" data-filter="active">Активные</button>
+        <button class="filter" data-filter="done">Выполненные</button>
 
-            <a href="/home/?filter=active"
-            class="filter {% if filter == 'active' %}active{% endif %}">
-            Активные
-            </a>
+        <div class="filter-bg"></div>
 
-            <a href="/home/?filter=done"
-            class="filter {% if filter == 'done' %}active{% endif %}">
-            Выполненные
-            </a>
-
-            <div class="filter-bg"></div>
-
-        </div>
-
-        <button class="add-task-button desktop">
-                <img src="{% static 'accounts/img/add-tsk.svg' %}" alt="">
-                Добавить задачу
-        </button>
-
-        <button class="add-task-button-mobile">
-                <img src="{% static 'accounts/img/add-tsk.svg' %}" alt="">
-        </button>
     </div>
 
-    <main>
-        <div class="main-header">
-            {% if filter == "active" %}
-                Активные
-            {% elif filter == "done" %}
-                Выполненные
-            {% else %}
-                Мои задачи
-            {% endif %}
-        </div>
+    <button class="add-task-button desktop">
+        <img src="{% static 'accounts/img/add-tsk.svg' %}" alt="">
+        Добавить задачу
+    </button>
 
-        <div class="if-null-tasks">
-            <h1>Здесь пока пусто</h1>
-            <h3>Добавьте первую задачу —<br> и она повится в этом списке</h3>
-            <button class="add-task-button-null">
-                <img src="{% static 'accounts/img/plus.svg' %}" alt="">Добавить задачу
+    <button class="add-task-button-mobile">
+        <img src="{% static 'accounts/img/add-tsk.svg' %}" alt="">
+    </button>
+
+</div>
+
+<main>
+    <div class="main-header">
+        Мои задачи
+    </div>
+
+    <div class="if-null-tasks">
+        <h1>Здесь пока пусто</h1>
+        <h3>Добавьте первую задачу —<br> и она появится в этом списке</h3>
+
+        <button class="add-task-button-null">
+            <img src="{% static 'accounts/img/big_plus.svg' %}" alt="">
+            Добавить задачу
+        </button>
+    </div>
+    
+</main>
+
+<div class="modal-overlay">
+
+    <div class="modal-window">
+
+        <div class="modal-header">
+            <h2>Новая задача</h2>
+            <button class="close-modal">
+                <img src="{% static 'accounts/img/close.svg' %}" alt="">
             </button>
         </div>
-    </main>
+
+    <div class="modal-body">
+
+        <div class="name-task">
+            <label class="text-above-input">Название задачи</label>
+            <input
+                type="text"
+                name="taskName"
+                placeholder="Выполнить домашнюю работу..."
+                required>
+        </div>
+
+        <div class="name-desc">
+            <label class="text-above-input">Описание</label>
+            <textarea
+                name="taskDesc"
+                placeholder="Цели, задачи, контекст..."
+                required></textarea>
+        </div>
+
+        <div class="resource-task">
+            <label class="text-above-input">Ссылка на ресурс</label>
+            <input
+                type="url"
+                class="task-link"
+                name="taskLink"
+                placeholder="https://notion.so/project-docs">
+        </div>
+
+        <div class="deadline-block">
+            <label class="text-above-input">Дедлайн</label>
+
+            <div class="deadline-row">
+
+                <input
+                    type="date"
+                    name="taskDate"
+                    class="deadline-date">
+
+                <input
+                    type="time"
+                    name="taskTime"
+                    class="deadline-time">
+
+            </div>
+        </div>
+
+        <div class="modal-footer">
+
+            <button class="back-modal">
+                <img src="{% static 'accounts/img/back.svg' %}" alt=""> Назад
+            </button>
+
+            <button type="button" class="submit-task">
+                <img src="{% static 'accounts/img/big_plus.svg' %}" alt=""> Добавить задачу
+            </button>
+
+        </div>
+    </div>
+
+        <div class="modal-footer">
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="{% static 'accounts/js/main.js' %}"></script>
 
 </body>
-
 </html>
-

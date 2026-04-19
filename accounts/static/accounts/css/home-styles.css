@@ -46,15 +46,16 @@ header a {
 }
 
 .add-task-button {
-  width: 167px;
-  height: 32px;
+  cursor: pointer;
+  width: 170px;
+  height: 40px;
   padding-top: 8px;
   padding-right: 12px;
   padding-bottom: 8px;
   padding-left: 12px;
   gap: 8px;
   border-radius: 6px;
-  background-color: black;
+  background-color: rgba(18, 83, 237, 1);
   align-items: center;
   display: flex;
   color: white;
@@ -65,6 +66,7 @@ header a {
 
 .add-task-button-mobile {
   display: none;
+  background-color: rgba(18, 83, 237, 1);
 }
 
 
@@ -73,16 +75,19 @@ header a {
   padding: 4px;
   border-radius: 8px;
   gap: 4px;
+  background: rgba(239, 244, 255, 1);
 }
 
 .filter {
+  background: rgba(239, 244, 255, 1);
   padding: 6px 12px;
   border-radius: 2px;
   text-decoration: none;
-  color: #6b7280;
   font-family: "Inter", sans-serif;
   font-size: 14px;
   cursor: pointer;
+  border: none;
+  outline: none;
 }
 
 .filter.active {
@@ -91,12 +96,14 @@ header a {
 }
 main{
   display: flex;
+  margin-top: 20px;
   flex-direction: column;
   padding: 24px;
-  padding-top: 40px;
-  border-radius: 8px;
+  padding-top: 30px;
+  border-radius: 12px;
   font-family: "Inter", sans-serif;
   min-height: 70vh;  
+  background: rgba(239, 244, 255, 1);
 }
 
 .main-header{
@@ -104,6 +111,7 @@ main{
   font-size: 20px;
   line-height: 100%;
   margin-bottom: 24px;
+  margin-top: -9px;
 }
 
 .if-null-tasks {
@@ -134,6 +142,7 @@ main{
 }
 
 .add-task-button-null{
+  cursor: pointer;
   width: 175px;
   height: 40px;
   padding-top: 8px;
@@ -142,12 +151,207 @@ main{
   padding-left: 16px;
   gap: 8px;
   border-radius: 6px;
-  background-color: black;
+  background-color: rgba(18, 83, 237, 1);
+;
   align-items: center;
   display: flex;
   color: white;
   font-family: "Inter", sans-serif;
   border: none;
+}
+
+/* ==================== Окно добавить задачу ======================== */
+
+.modal-overlay{
+  background-color: rgba(15, 14, 14, 0.4);
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1000;
+}
+
+.modal-window {
+  
+  width: 520px;
+  min-height: 514px;
+  border-radius: 12px;
+  padding: 40px 32px 10px 32px;
+  background: white;
+
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+.close-modal {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  margin: 0;
+}
+
+.modal-body {
+  width: 100%;
+  margin-top: 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.name-task,
+.name-desc,
+.resource-task,
+.deadline-block {
+  width: 100%;
+}
+
+.text-above-input {
+  display: block;
+  margin-bottom: 8px;
+
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+.name-task input,
+.name-desc textarea,
+.resource-task input,
+.deadline-date,
+.deadline-time {
+  width: 100%;
+  border: 1px solid rgba(228, 228, 231, 1);
+  border-radius: 6px;
+  padding: 8px 12px;
+  box-sizing: border-box;
+
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.name-task input,
+.resource-task input,
+.deadline-date,
+.deadline-time {
+  height: 40px;
+}
+
+.name-desc textarea {
+  height: 80px;
+  resize: none;
+}
+
+.deadline-row {
+  display: flex;
+  gap: 12px;
+}
+
+.deadline-date,
+.deadline-time {
+  width: calc(50% - 6px);
+}
+
+.deadline-date {
+  flex: 2;
+}
+
+.deadline-time {
+  flex: 1;
+}
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 12px;
+}
+
+.back-modal {
+  width: 95px;
+  height: 40px;
+  border: none;
+  border-radius: 6px;
+  background: #f4f4f5;
+  padding: 8px 16px 8px 12px;
+  gap: 8px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.submit-task {
+  width: 170px;
+  height: 40px;
+  border: none;
+  border-radius: 6px;
+  background-color: rgba(18, 83, 237, 1);
+  gap: 8px;
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.back-modal,
+.submit-task {
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  padding: 0;
+  line-height: 1;
+}
+
+.name-desc textarea {
+  height: 80px;
+  resize: none;
+  padding: 12px;
+}
+
+.task-link {
+  background: url("../img/link.svg") no-repeat 12px center;
+  background-size: 14px;
+  padding-left: 34px;
+}
+
+.resource-task input {
+  background-image: url("../img/link.svg");
+  background-repeat: no-repeat;
+  background-size: 15px;
+  background-position: 13px center;
+
+  padding-left: 38px;
 }
 
 /* ================= Мобильная версия ======================= */
@@ -162,9 +366,11 @@ main{
 
   .tools{
     gap: 8px;
+    margin-bottom: 12px;
   }
 
   .add-task-button {
+    background-color: rgba(18, 83, 237, 1);
     display: none;
   }
 
@@ -172,7 +378,7 @@ main{
     display: flex;
     width: 40px;
     height: 40px;
-    background: black;
+    background-color: rgba(18, 83, 237, 1);
     border-radius: 8px;
     align-items: center;
     justify-content: center;
