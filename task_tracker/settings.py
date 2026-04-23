@@ -11,7 +11,7 @@ import os
 SECRET_KEY = os.getenv("SECRET_KEY", "railway-fallback-secret-2026")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG = os.getenv("DEBUG", "True") == "True"
 
 ALLOWED_HOSTS = ["*"]
 
@@ -66,13 +66,11 @@ WSGI_APPLICATION = 'task_tracker.wsgi.application'
 import dj_database_url
 
 DATABASES = {
-    'default': dj_database_url.parse(
-        os.environ["DATABASE_URL"],
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3',
         conn_max_age=600
     )
 }
-
-print("POSTGRES MODE ACTIVE")
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -109,10 +107,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    BASE_DIR / "static"
-]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
