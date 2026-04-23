@@ -58,16 +58,51 @@ const taskLink = document.querySelector('[name="taskLink"]');
 const taskDate = document.querySelector('[name="taskDate"]');
 const taskTime = document.querySelector('[name="taskTime"]');
 
-submitButton.addEventListener('click', () => {
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+        return parts.pop().split(';').shift();
+    }
+    return '';
+}
 
-    console.log({
-    Название: taskName.value,
-    Описание: taskDesc.value,
-    Ссылка: taskLink.value,
-    Дедлайн: `${taskDate.value} ${taskTime.value}`
-    });
+submitButton.addEventListener('click', async () => {
+    const deadlineDate = taskDate.value;
+    const deadlineTime = taskTime.value || '00:00';
+    const deadline = deadlineDate ? `${deadlineDate}T${deadlineTime}:00` : '';
 
-    // modal.style.display = 'none';
+    const payload = {
+        title: taskName.value,
+        description: taskDesc.value,
+        resource_url: taskLink.value,
+        deadline: deadline,
+        status: 'active'
+    };
+
+    try {
+        const response = await fetch('/api/tasks/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(`Ошибка сохранения: ${JSON.stringify(data)}`);
+            return;
+        }
+
+        modal.style.display = 'none';
+        console.log('Задача сохранена в БД:', data);
+    } catch (error) {
+        alert('Сервер недоступен или произошла ошибка сети.');
+        return;
+    }
 
     taskName.value = '';
     taskDesc.value = '';

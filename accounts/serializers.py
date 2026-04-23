@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User
+from .models import User, Tasks
 import bcrypt
 
 
@@ -30,3 +30,17 @@ class SignupSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField()
+
+class TaskSerializer(serializers.ModelSerializer):
+    resource_url = serializers.URLField(required=True)
+
+    class Meta:
+        model = Tasks
+        fields = ["id", "title", "description", "resource_url", "deadline", "status", "created_at"]
+        read_only_fields = ["id", "created_at"]
+
+    def validate_title(self, value):
+        cleaned_title = value.strip()
+        if not cleaned_title:
+            raise serializers.ValidationError("Title is required.")
+        return cleaned_title
