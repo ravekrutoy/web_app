@@ -88,18 +88,6 @@ class HomeView(APIView):
 
         if not token:
             return redirect("log")
-        except TokenError as exc:
-            raise AuthenticationFailed("Invalid token") from exc
-
-        return render(request, "accounts/home.html")
-    
-class HomeView(APIView):
-
-    def get(self, request):
-        token = request.COOKIES.get("accessToken")
-
-        if not token:
-            return redirect("log")
 
         filter_type = request.GET.get("filter", "all")
 
