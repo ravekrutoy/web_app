@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SignupView, LoginView, LogoutView, HomeView, TaskView
+from .views import SignupView, LoginView, LogoutView, HomeView, TaskView, TaskStatusView
 from . import views
 
 urlpatterns = [
@@ -10,4 +10,5 @@ urlpatterns = [
     path('api/auth/login/', LoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
     path('api/tasks/', TaskView.as_view(), name="tasks"),
+    path('api/tasks/<int:task_id>/status/', TaskStatusView.as_view(), name="task-status"),
 ]

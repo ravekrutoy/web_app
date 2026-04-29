@@ -5,10 +5,11 @@ class User(models.Model):
     lastName = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=100)
-    
+
 class Tasks(models.Model):
     STATUS_CHOICES = [
-        ("active", "completed")
+        ("active", "active"),
+        ("completed", "completed"),
     ]
 
     title = models.CharField(max_length=100)
@@ -16,6 +17,7 @@ class Tasks(models.Model):
     resource_url = models.URLField(max_length=200)
     deadline = models.DateTimeField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="active")
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)    
+
 
 

@@ -33,6 +33,7 @@ class LoginSerializer(serializers.Serializer):
 
 class TaskSerializer(serializers.ModelSerializer):
     resource_url = serializers.URLField(required=True)
+    description = serializers.CharField(required=False, allow_blank=True)
 
     class Meta:
         model = Tasks
@@ -44,3 +45,7 @@ class TaskSerializer(serializers.ModelSerializer):
         if not cleaned_title:
             raise serializers.ValidationError("Title is required.")
         return cleaned_title
+
+
+class TaskStatusSerializer(serializers.Serializer):
+    status = serializers.ChoiceField(choices=["active", "completed"])

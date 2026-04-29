@@ -1,9 +1,9 @@
 from django.shortcuts import render
 import bcrypt
 
-from .models import User
+from .models import User, Tasks
 
-from .serializers import SignupSerializer, LoginSerializer, TaskSerializer
+from .serializers import SignupSerializer, LoginSerializer, TaskSerializer, TaskStatusSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -99,6 +99,20 @@ class HomeView(APIView):
         return render(request, "accounts/home.html", context)
 
 class TaskView(APIView):
+    def get(self, request):
+        status_filter = request.GET.get("status", "all")
+        if status_filter not in ["all", "active", "completed"]:
+            return Response(
+                {"error": "status must be one of: all, active, completed"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        queryset = Tasks.objects.all().order_by("-created_at")
+        if status_filter != "all":
+            queryset = queryset.filter(status=status_filter)
+
+        serializer = TaskSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
         serializer = TaskSerializer(data=request.data)
@@ -108,3 +122,20 @@ class TaskView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class TaskStatusView(APIView):
+    def patch(self, request, task_id):
+        try:
+            task = Tasks.objects.get(id=task_id)
+        except Tasks.DoesNotExist:
+            return Response({"error": "Task not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = TaskStatusSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        task.status = serializer.validated_data["status"]
+        task.save(update_fields=["status"])
+
+        return Response(TaskSerializer(task).data, status=status.HTTP_200_OK)
