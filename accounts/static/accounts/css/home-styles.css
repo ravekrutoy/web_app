@@ -115,9 +115,9 @@ main{
 }
 
 .if-null-tasks {
-  display: none;
   width: 291px;
 
+  display: flex;
   flex-direction: column;
   align-items: center;
 
@@ -375,7 +375,7 @@ main{
 }
 
 .tasks-list{
-    display:none;
+    display:flex;
     flex-direction:column;
     gap:20px;
 }
