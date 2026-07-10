@@ -1,4 +1,3 @@
-loadTasks();
 const filters = document.querySelectorAll('.filter');
 const header = document.querySelector('.main-header');
 let currentFilter = "all";
