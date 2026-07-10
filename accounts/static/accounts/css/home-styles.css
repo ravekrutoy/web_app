@@ -177,8 +177,12 @@ main{
   z-index: 1000;
 }
 
-.modal-window {
-  
+.modal-overlay.visible {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-window{
   width: 520px;
   min-height: 514px;
   border-radius: 12px;
@@ -353,6 +357,109 @@ main{
 
   padding-left: 38px;
 }
+
+.name-task input.error,
+.deadline-date.error,
+.deadline-time.error {
+  border-color: red;
+}
+
+.task-name-error,
+.task-date-error {
+  color: red;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  margin-top: 4px;
+}
+
+.tasks-list{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.task-card{
+
+    width:1092px;
+    height:56px;
+
+    margin:16px 24px 0;
+
+    padding:0 16px;
+
+    background:#fff;
+    border-radius:8px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.task-left{
+
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    flex:1;
+}
+
+.task-center{
+
+    display:flex;
+    align-items:center;
+
+    gap:8px;
+
+    margin-right:24px;
+}
+
+.task-checkbox{
+
+    width:16px;
+    height:16px;
+}
+
+.task-title{
+
+    font-family:"Inter",sans-serif;
+    font-size:16px;
+    font-weight:500;
+    line-height:20px;
+}
+
+.task-icon{
+
+    width:16px;
+    height:16px;
+}
+
+.task-date,
+.task-time{
+
+    font-family:"Inter",sans-serif;
+    font-size:14px;
+    color:#71717A;
+}
+
+.delete-task{
+
+    width:32px;
+    height:32px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:none;
+    border:none;
+
+    cursor:pointer;
+}
+
 
 /* ================= Мобильная версия ======================= */
 

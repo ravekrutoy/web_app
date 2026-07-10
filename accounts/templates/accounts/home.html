@@ -14,7 +14,7 @@
     <img src="{% static 'accounts/img/logo.svg' %}" alt="">
 
     <div>
-        <a href="{% url 'log' %}">
+        <a class="exit-button"  href="{% url 'log' %}" onclick="loading()">
             <img src="{% static 'accounts/img/logout.svg' %}" alt="">Выйти
         </a>
     </div>
@@ -47,7 +47,7 @@
     <div class="main-header">
         Мои задачи
     </div>
-
+    <div class="tasks-list"></div>
     <div class="if-null-tasks">
         <h1>Здесь пока пусто</h1>
         <h3>Добавьте первую задачу —<br> и она появится в этом списке</h3>
@@ -80,6 +80,7 @@
                 name="taskName"
                 placeholder="Выполнить домашнюю работу..."
                 required>
+            <div class="task-name-error"></div>
         </div>
 
         <div class="name-desc">
@@ -110,13 +111,13 @@
                     name="taskDate"
                     class="deadline-date"
                     required>
-
                 <input
                     type="time"
                     name="taskTime"
                     class="deadline-time">
 
             </div>
+            <div class="task-date-error"></div>
         </div>
 
         <div class="modal-footer">

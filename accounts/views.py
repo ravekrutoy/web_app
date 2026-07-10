@@ -122,7 +122,20 @@ class TaskView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, task_id):
 
+        try:
+            task = Tasks.objects.get(id=task_id)
+        except Tasks.DoesNotExist:
+            return Response(
+                {"error": "Task not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        task.delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class TaskStatusView(APIView):
     def patch(self, request, task_id):
@@ -139,3 +152,4 @@ class TaskStatusView(APIView):
         task.save(update_fields=["status"])
 
         return Response(TaskSerializer(task).data, status=status.HTTP_200_OK)
+    
