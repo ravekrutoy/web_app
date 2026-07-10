@@ -596,6 +596,33 @@ main{
     background: #eef4ff;
   }
 
+  .deadline-row {
+    display: flex;
+    gap: 12px;
+  }
+
+  .deadline-date,
+  .deadline-time {
+    width: 100%;
+    min-width: 0;
+    border-radius: 12px;
+    border: 1px solid rgba(228, 228, 231, 1);
+    background: #ffffff;
+    color: #111827;
+    padding: 10px 14px;
+    height: 44px;
+    font-size: 14px;
+    line-height: 20px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
+  .deadline-date::-webkit-calendar-picker-indicator,
+  .deadline-time::-webkit-calendar-picker-indicator {
+    opacity: 0.6;
+  }
+
   .tools {
     display: flex;
     align-items: center;
