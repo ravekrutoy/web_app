@@ -1,3 +1,4 @@
+loadTasks();
 const filters = document.querySelectorAll('.filter');
 const header = document.querySelector('.main-header');
 let currentFilter = "all";
@@ -103,7 +104,7 @@ submitButton.addEventListener('click', function() {
         const resourceUrl = link.value.trim();
         const deadlineDate = date.value;
         const deadlineTime = time.value;
-        const deadline = `${deadlineDate}T${deadlineTime || '00:00'}:00Z`;
+        const deadline = `${deadlineDate}T${deadlineTime || '00:00'}:00`;
 
         let hasError = false;
         let dateErrorText = '';
@@ -188,7 +189,7 @@ submitButton.addEventListener('click', function() {
             modal.classList.remove('visible');
             resetTaskForm();
 
-            loadTasks(); 
+            loadTasks();
         })
         .catch(error => {
             console.error(error);
@@ -213,7 +214,7 @@ function loadTasks() {
             tasks.forEach(task => {
                 renderTask(task);
             });
-        })  
+        })
         .catch(error => {
             console.error(error);
         });
@@ -309,7 +310,7 @@ function updateTaskStatus(taskId, status) {
             throw new Error("Ошибка при обновлении статуса задачи");
         }
         return response.json();
-    })  
+    })
     .then(data => {
         console.log(data);
 
