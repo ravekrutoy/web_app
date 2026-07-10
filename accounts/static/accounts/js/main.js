@@ -1,30 +1,73 @@
 const filters = document.querySelectorAll('.filter');
 const header = document.querySelector('.main-header');
 let currentFilter = "all";
+const filterCounts = {
+    all: document.getElementById('count-all'),
+    active: document.getElementById('count-active'),
+    completed: document.getElementById('count-completed'),
+};
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+        return decodeURIComponent(parts.pop().split(';').shift());
+    }
+    return null;
+}
+
+function csrfFetch(url, options = {}) {
+    const headers = options.headers ? { ...options.headers } : {};
+    const token = getCookie('csrftoken');
+
+    if (token) {
+        headers['X-CSRFToken'] = token;
+    }
+
+    return fetch(url, { ...options, headers });
+}
+
+function setFilter(filterType) {
+    filters.forEach(function(f) {
+        f.classList.toggle('active', f.dataset.filter === filterType);
+    });
+
+    currentFilter = filterType === "done" ? "completed" : filterType;
+    localStorage.setItem('taskFilter', filterType);
+
+    if (filterType === "all") {
+        header.textContent = "Мои задачи";
+    } else if (filterType === "active") {
+        header.textContent = "Активные";
+    } else if (filterType === "done") {
+        header.textContent = "Выполненные";
+    }
+}
+
+function updateFilterCounts(counts) {
+    if (!counts) return;
+    if (filterCounts.all) {
+        filterCounts.all.textContent = `(${counts.all})`;
+    }
+    if (filterCounts.active) {
+        filterCounts.active.textContent = `(${counts.active})`;
+    }
+    if (filterCounts.completed) {
+        filterCounts.completed.textContent = `(${counts.completed})`;
+    }
+}
 
 filters.forEach(function(filter) {
     filter.addEventListener('click', function() {
-
-        filters.forEach(function(f) {
-            f.classList.remove('active');
-        });
-
-        filter.classList.add('active');
-
-        const type = filter.dataset.filter;
-        currentFilter = type === "done" ? "completed" : type;
-
-        if (type === "all") {
-            header.textContent = "Мои задачи";
-        } else if (type === "active") {
-            header.textContent = "Активные";
-        } else if (type === "done") {
-            header.textContent = "Выполненные";
-        }
-
+        setFilter(filter.dataset.filter);
         loadTasks();
     });
 });
+
+const savedFilter = localStorage.getItem('taskFilter');
+if (savedFilter) {
+    setFilter(savedFilter);
+}
 
 const modal = document.querySelector('.modal-overlay');
 
@@ -32,9 +75,26 @@ const taskNameInput = document.querySelector('[name="taskName"]');
 const taskNameError = document.querySelector('.task-name-error');
 const desc = document.querySelector('[name="taskDesc"]');
 const link = document.querySelector('[name="taskLink"]');
+const taskLinkError = document.querySelector('.task-link-error');
 const date = document.querySelector('[name="taskDate"]');
 const taskDateError = document.querySelector('.task-date-error');
 const time = document.querySelector('[name="taskTime"]');
+const tasksLoader = document.querySelector('.tasks-loader');
+
+function setLoading(isLoading) {
+    if (tasksLoader) {
+        tasksLoader.classList.toggle('visible', isLoading);
+    }
+
+    if (isLoading) {
+        if (tasksList) {
+            tasksList.style.display = 'none';
+        }
+        if (emptyTasks) {
+            emptyTasks.style.display = 'none';
+        }
+    }
+}
 
 function resetTaskForm() {
     if (taskNameInput) {
@@ -45,7 +105,13 @@ function resetTaskForm() {
         taskNameError.textContent = '';
     }
     desc.value = '';
-    link.value = '';
+    if (link) {
+        link.value = '';
+        link.classList.remove('error');
+    }
+    if (taskLinkError) {
+        taskLinkError.textContent = '';
+    }
     if (date) {
         date.value = '';
         date.classList.remove('error');
@@ -96,6 +162,23 @@ const submitButton = document.querySelector('.submit-task');
 
 const tasksList = document.querySelector(".tasks-list");
 const emptyTasks = document.querySelector(".if-null-tasks");
+const emptyTitle = document.querySelector('.empty-title');
+const emptySubtitle = document.querySelector('.empty-subtitle');
+
+function setEmptyStateText(filterType) {
+    if (!emptyTitle || !emptySubtitle) return;
+
+    if (filterType === 'active') {
+        emptyTitle.textContent = 'Активных задач нет';
+        emptySubtitle.innerHTML = 'Добавьте новую задачу или снимите отметку с выполненной.';
+    } else if (filterType === 'completed') {
+        emptyTitle.textContent = 'Здесь ещё нет выполненных задач';
+        emptySubtitle.innerHTML = 'Отметьте задачу как выполненную или создайте новую.';
+    } else {
+        emptyTitle.textContent = 'Здесь пока пусто';
+        emptySubtitle.innerHTML = 'Добавьте первую задачу —<br> и она появится в этом списке';
+    }
+}
 
 submitButton.addEventListener('click', function() {
         const title = taskNameInput.value.trim();
@@ -119,6 +202,29 @@ submitButton.addEventListener('click', function() {
                 taskNameError.textContent = '';
             }
             taskNameInput.classList.remove('error');
+        }
+
+        if (resourceUrl) {
+            try {
+                new URL(resourceUrl);
+                if (taskLinkError) {
+                    taskLinkError.textContent = '';
+                }
+                link.classList.remove('error');
+            } catch (error) {
+                if (taskLinkError) {
+                    taskLinkError.textContent = 'Введите корректную ссылку';
+                }
+                link.classList.add('error');
+                hasError = true;
+            }
+        } else {
+            if (taskLinkError) {
+                taskLinkError.textContent = '';
+            }
+            if (link) {
+                link.classList.remove('error');
+            }
         }
 
         if (!deadlineDate && !deadlineTime) {
@@ -164,7 +270,7 @@ submitButton.addEventListener('click', function() {
             return;
         }
 
-        fetch("/api/tasks/", {
+        csrfFetch("/api/tasks/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -195,11 +301,20 @@ submitButton.addEventListener('click', function() {
         });
 });
 
-function loadTasks() {
-    fetch(`/api/tasks/?status=${currentFilter}`)
+function loadTasks(showLoader = true) {
+    if (showLoader) {
+        setLoading(true);
+    }
+
+    csrfFetch(`/api/tasks/?status=${currentFilter}`)
         .then(response => response.json())
-        .then(tasks => {
-            if (tasks.length === 0) {
+        .then(data => {
+            const tasks = data.tasks || data;
+            const counts = data.counts || null;
+            updateFilterCounts(counts);
+
+            if (!tasks || tasks.length === 0) {
+                setEmptyStateText(currentFilter);
                 emptyTasks.style.display = "flex";
                 tasksList.style.display = "none";
                 return;
@@ -207,7 +322,6 @@ function loadTasks() {
 
             emptyTasks.style.display = "none";
             tasksList.style.display = "block";
-
             tasksList.innerHTML = "";
 
             tasks.forEach(task => {
@@ -216,6 +330,9 @@ function loadTasks() {
         })
         .catch(error => {
             console.error(error);
+        })
+        .finally(() => {
+            setLoading(false);
         });
 }
 
@@ -233,7 +350,22 @@ function renderTask(task) {
     checkbox.checked = task.status === "completed";
 
     checkbox.addEventListener("change", function() {
-        updateTaskStatus(task.id, checkbox.checked ? "completed" : "active");
+        const newStatus = checkbox.checked ? "completed" : "active";
+        const shouldAnimateRemoval =
+            (currentFilter === "active" && newStatus === "completed") ||
+            (currentFilter === "completed" && newStatus === "active");
+
+        if (shouldAnimateRemoval) {
+            card.classList.add("task-removing");
+            title.classList.add("task-title-completed");
+            updateTaskStatus(task.id, newStatus).then(() => {
+                loadTasks(false);
+            });
+        } else {
+            updateTaskStatus(task.id, newStatus).then(() => {
+                loadTasks(false);
+            });
+        }
     });
 
     const title = document.createElement("span");
@@ -276,7 +408,7 @@ function renderTask(task) {
     const deleteButton = document.createElement("button");
     deleteButton.addEventListener("click", function () {
 
-        deleteTask(task.id);
+        deleteTask(task.id, false);
 
     });
     deleteButton.classList.add("delete-task");
@@ -297,7 +429,7 @@ loadTasks();
 
 
 function updateTaskStatus(taskId, status) {
-    fetch(`/api/tasks/${taskId}/status/`, {
+    return csrfFetch(`/api/tasks/${taskId}/status/`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
@@ -312,18 +444,17 @@ function updateTaskStatus(taskId, status) {
     })
     .then(data => {
         console.log(data);
-
-        loadTasks();
+        return data;
     })
     .catch(error => {
         console.error(error);
+        throw error;
     });
-
 }
 
-function deleteTask(taskId) {
+function deleteTask(taskId, showLoader = true) {
 
-    fetch(`/api/tasks/${taskId}/`, {
+    csrfFetch(`/api/tasks/${taskId}/`, {
 
         method: "DELETE"
 
@@ -334,7 +465,7 @@ function deleteTask(taskId) {
             throw new Error("Ошибка удаления");
         }
 
-        loadTasks();
+        loadTasks(showLoader);
 
     })
     .catch(error => {

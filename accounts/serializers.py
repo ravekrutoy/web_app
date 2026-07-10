@@ -32,7 +32,7 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField()
 
 class TaskSerializer(serializers.ModelSerializer):
-    resource_url = serializers.URLField(required=True)
+    resource_url = serializers.URLField(required=False, allow_blank=True)
     description = serializers.CharField(required=False, allow_blank=True)
 
     class Meta:

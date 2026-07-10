@@ -12,9 +12,10 @@ class Tasks(models.Model):
         ("completed", "completed"),
     ]
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tasks", null=True, blank=True)
     title = models.CharField(max_length=100)
-    description = models.TextField()
-    resource_url = models.URLField(max_length=200)
+    description = models.TextField(blank=True)
+    resource_url = models.URLField(max_length=200, blank=True, null=True)
     deadline = models.DateTimeField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="active")
     created_at = models.DateTimeField(auto_now_add=True)    

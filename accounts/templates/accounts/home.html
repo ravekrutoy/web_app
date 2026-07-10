@@ -5,16 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
-  <link rel="stylesheet" href="{% static 'accounts/css/home-styles.css' %}">
+  <link rel="stylesheet" href="{% static 'accounts/css/home-styles.css' %}?v=6">
 </head>
 
 <body>
+{% csrf_token %}
 
 <header>
     <img src="{% static 'accounts/img/logo.svg' %}" alt="">
 
     <div>
-        <a class="exit-button"  href="{% url 'log' %}" onclick="loading()">
+        <a class="exit-button" href="{% url 'logout' %}" onclick="loading()">
             <img src="{% static 'accounts/img/logout.svg' %}" alt="">Выйти
         </a>
     </div>
@@ -48,16 +49,16 @@
         Мои задачи
     </div>
     <div class="tasks-list"></div>
+    <div class="tasks-loader">Загрузка задач...</div>
     <div class="if-null-tasks">
-        <h1>Здесь пока пусто</h1>
-        <h3>Добавьте первую задачу —<br> и она появится в этом списке</h3>
+        <h1 class="empty-title">Здесь пока пусто</h1>
+        <h3 class="empty-subtitle">Добавьте первую задачу —<br> и она появится в этом списке</h3>
 
         <button class="add-task-button-null">
             <img src="{% static 'accounts/img/big_plus.svg' %}" alt="">
             Добавить задачу
         </button>
     </div>
-    
 </main>
 
 <div class="modal-overlay">
@@ -97,8 +98,8 @@
                 type="url"
                 class="task-link"
                 name="taskLink"
-                placeholder="https://notion.so/project-docs"
-                required>
+                placeholder="https://notion.so/project-docs">
+            <div class="task-link-error"></div>
         </div>
 
         <div class="deadline-block">
@@ -141,7 +142,7 @@
 
 </div>
 
-<script src="{% static 'accounts/js/main.js' %}"></script>
+<script src="{% static 'accounts/js/main.js' %}?v=3"></script>
 
 </body>
 </html>
